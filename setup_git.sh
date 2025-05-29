@@ -1,5 +1,6 @@
 #!/bin/bash
 # 
+CUR_DIR="$PWD"
 echo "==========================================================================="
 echo "test connection to SSH host"
 echo "==========================================================================="
@@ -31,23 +32,7 @@ fi
 echo "==========================================================================="
 echo "clone Ampere Altra ADLINK development platforms"
 echo "==========================================================================="
-# cd $HOME 
-SILLICON_FAMILY=$1
-if [ -z "$SILLICON_FAMILY" ]; then
-  SILLICON_FAMILY="edk2-adlink-ampere"
-fi
-if [ -d "$SILLICON_FAMILY" ]; then
-  read -p "Do you wish to override current $SILLICON_FAMILY folder?" yn
-  case $yn in
-    [Yy]* )   rm -rf $SILLICON_FAMILY;;
-    * ) return 1;;
-  esac
-fi
-git clone --recurse-submodules -j8 https://github.com/ADLINK/edk2-adlink-ampere.git $SILLICON_FAMILY
-echo "==========================================================================="
-echo "fetch submodules recursively"
-echo "==========================================================================="
-cd $SILLICON_FAMILY
+cd CUR_DIR 
 if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
   echo "==========================================================================="
   echo "replace HTTPS access with SSH access if authenticated"
@@ -55,14 +40,15 @@ if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; 
     git clone --recurse-submodules -j8 https://github.com/ADLINK/AmpereAltra-ATF-SCP.git 
     git clone --recurse-submodules -j8 --branch v2.10.100-ampere https://github.com/AmpereComputing/edk2-platforms.git 
     git clone --recurse-submodules -j8 https://github.com/Linaro/OpenPlatformPkg.git
-    git clone --recurse-submodules -j8 --branch adlink https://github.com/ADLINK/edk2-ampere-tools.git 
-    git clone --recurse-submodules -j8 --branch edk2-stable202402 https://github.com/tianocore/edk2.git 
+    git clone --recurse-submodules -j8 https://github.com/AmpereComputing/edk2-ampere-tools.git 
+    git clone --branch edk2-stable202402 https://github.com/tianocore/edk2.git 
     cd edk2/UnitTestFrameworkPkg/Library/SubhookLib/
+    rm -rf subhook
     git clone https://github.com/tianocore/edk2-subhook subhook
-    git submodule update --init --recursive
     cd ../../../
     git submodule update --init --recursive
     cd ..
+
   git remote set-url origin git@github.com-adlink:ADLINK/edk2-adlink-ampere.git
 fi
 echo "==========================================================================="
