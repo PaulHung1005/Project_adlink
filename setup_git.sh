@@ -32,7 +32,7 @@ fi
 echo "==========================================================================="
 echo "clone Ampere Altra ADLINK development platforms"
 echo "==========================================================================="
-cd CUR_DIR 
+cd "$CUR_DIR" 
 if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
   echo "==========================================================================="
   echo "replace HTTPS access with SSH access if authenticated"
