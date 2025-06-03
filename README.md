@@ -73,13 +73,13 @@ To work on a branch other than `master`, switch to the desired branch using the 
 git checkout <branch-name>
 ```
 
-To clone and initialize additional project repositories, ampere tools and binaries required for the build,
+To clone and initialize additional project repositories, ampere tools and binaries required for the build
 
 ```
 . setup_git.sh
 ```
 
-To install and configure the necessary tools and dependencies for the build environment,
+To install and configure the necessary tools and dependencies for the build environment
 
 ```
 . setup_tools.sh
