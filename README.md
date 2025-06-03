@@ -53,11 +53,42 @@ Place the file in the **Override** folder as shown below, apply the changes ther
 edk2-adlink-ampere/adlink-platforms/Platform/Ampere/ComHpcAltPkg/Override/edk2-platforms/Silicon/Ampere/AmpereAltraPkg/Drivers/RootComplexConfigDxe/RootComplexConfigDxe.c
  ```
 
+# Cloning Project Repository and Setting up Build Environment
+
+To clone the parent directory with folder containing Adlink specific changes use following steps of git command
+
+```
+git clone https://github.com/ADLINK/edk2-adlink-ampere.git
+```
+
+Navigate to the parent directory,
+
+```
+cd edk2-adlink-ampere
+```
+
+To work on a branch other than `master`, switch to the desired branch using the following command, else skip it.
+
+```
+git checkout <branch-name>
+```
+
+To clone and initialize additional project repositories, ampere tools and binaries required for the build,
+
+```
+. setup_git.sh
+```
+
+To install and configure the necessary tools and dependencies for the build environment,
+
+```
+. setup_tools.sh
+```
 
 
 # Building EDK-II image
 
-1. Enter into working directory.
+1. Enter into working directory (edk2-adlink-ampere).
 
 2. Execute the below command to build EDK-II image for COM-HPC-ALT
 
