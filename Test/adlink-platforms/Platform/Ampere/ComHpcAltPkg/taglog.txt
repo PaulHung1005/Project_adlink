@@ -1,0 +1,1 @@
+Updated edk2-platforms_CCoE submodule to align I2C bus numbering between Altra and Altra Max
