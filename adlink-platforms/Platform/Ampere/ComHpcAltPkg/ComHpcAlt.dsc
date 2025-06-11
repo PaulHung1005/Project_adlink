@@ -52,7 +52,7 @@
   DEFINE SECURE_BOOT_ENABLE      = FALSE
   DEFINE TPM2_ENABLE             = TRUE
   DEFINE INCLUDE_TFTP_COMMAND    = TRUE
-  DEFINE PLATFORM_CONFIG_UUID    = E032CCBF-B7F7-41A7-854D-02C5AFCCABA6
+  DEFINE PLATFORM_CONFIG_UUID    = F601E017-0E4F-4BA1-A084-698E74F7747E
   #
   # DEVEL_MODE will disable PXE/HTTP boot
   #
@@ -71,6 +71,7 @@
   DEFINE NETWORK_ALLOW_HTTP_CONNECTIONS      = TRUE
   DEFINE NETWORK_TLS_ENABLE                  = TRUE
   DEFINE REDFISH_ENABLE                      = FALSE
+  DEFINE BMC_ENABLED                         = TRUE
 
   DEFINE DEFAULT_KEYS        = TRUE
   DEFINE PK_DEFAULT_FILE     = Platform/Ampere/JadePkg/TestKeys/PK.cer
@@ -303,9 +304,13 @@
   }
   Platform/Ampere/JadePkg/Drivers/AcpiPlatformDxe/AcpiPlatformDxe.inf
   Silicon/Ampere/AmpereAltraPkg/AcpiCommonTables/AcpiCommonTables.inf
+!if $(BMC_ENABLED) == TRUE
   Platform/Ampere/ComHpcAltPkg/AcpiTables/AcpiTables.inf
   Platform/Ampere/JadePkg/Ac02AcpiTables/Ac02AcpiTables.inf
-
+!else
+  BMC-disabled/Ac02AcpiTables/Ac02AcpiTables.inf
+  BMC-disabled/AcpiTables/AcpiTables.inf
+!endif
 
   #DMIEdit
   Platform/Ampere/ComHpcAltPkg/ATFMMCall/ATFMMCall.inf
@@ -348,7 +353,6 @@
   #
   # Ipmi utilities
   #
-  Silicon/Ampere/AmpereSiliconPkg/Application/IpmiUtil/IpmiUtilDynamicCommand.inf
 
   #
   # HII
@@ -360,7 +364,6 @@
   Silicon/Ampere/AmpereAltraPkg/Drivers/RasConfigDxe/RasConfigDxe.inf
   Silicon/Ampere/AmpereAltraPkg/Drivers/WatchdogConfigDxe/WatchdogConfigDxe.inf
   Silicon/Ampere/AmpereAltraPkg/Drivers/PcieDeviceConfigDxe/PcieDeviceConfigDxe.inf
-  Silicon/Ampere/AmpereSiliconPkg/Drivers/BmcInfoScreenDxe/BmcInfoScreenDxe.inf
   Silicon/Ampere/AmpereAltraPkg/Drivers/RootComplexConfigDxe/RootComplexConfigDxe.inf
   # //><ADLINK-PD20232111>//
   Platform/Ampere/ComHpcAltPkg/Drivers/HardwareMonitorDxe/HwMonitorDxe.inf
@@ -369,7 +372,15 @@
   #
   # Misc
   #
+  
+  #
+  # BMC_ENABLED
+  #
+!if $(BMC_ENABLED) == TRUE
+  Silicon/Ampere/AmpereSiliconPkg/Application/IpmiUtil/IpmiUtilDynamicCommand.inf
+  Silicon/Ampere/AmpereSiliconPkg/Drivers/BmcInfoScreenDxe/BmcInfoScreenDxe.inf
   Silicon/Ampere/AmpereAltraPkg/Drivers/IpmiBootDxe/IpmiBootDxe.inf
+!endif
 
   #
   # Redfish

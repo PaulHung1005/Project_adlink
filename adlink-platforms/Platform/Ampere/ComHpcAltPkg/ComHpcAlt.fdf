@@ -148,7 +148,10 @@ APRIORI PEI {
   INF MdeModulePkg/Universal/StatusCodeHandler/Pei/StatusCodeHandlerPei.inf
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/ATFHobPei/ATFHobPeim.inf
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/SmbusHcPei/SmbusHcPei.inf
-  INF Silicon/Ampere/AmpereSiliconPkg/Drivers/IpmiSsif/IpmiSsifPeim.inf
+  #
+!if $(BMC_ENABLED) == TRUE
+  INF Silicon/Ampere/AmpereSiliconPkg/Drivers/IpmiSsif/IpmiSsifPeim.inf  
+!endif
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/FlashPei/FlashPei.inf
   INF MdeModulePkg/Universal/Variable/Pei/VariablePei.inf
 }
@@ -179,7 +182,10 @@ APRIORI PEI {
   #
   # IPMI
   #
+!if $(BMC_ENABLED) == TRUE
   INF Silicon/Ampere/AmpereSiliconPkg/Drivers/IpmiSsif/IpmiSsifPeim.inf
+
+!endif
 
   #
   # Print platform information before passing control into the Driver Execution Environment (DXE) phase
@@ -366,7 +372,9 @@ APRIORI DXE {
   #
   # IPMI
   #
+!if $(BMC_ENABLED) == TRUE
   INF Silicon/Ampere/AmpereSiliconPkg/Drivers/IpmiSsif/IpmiSsifDxe.inf
+!endif
 
   #
   # UEFI application (Shell Embedded Boot Loader)
@@ -404,9 +412,13 @@ APRIORI DXE {
   INF MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf
   INF Platform/Ampere/JadePkg/Drivers/AcpiPlatformDxe/AcpiPlatformDxe.inf
   INF RuleOverride=ACPITABLE Silicon/Ampere/AmpereAltraPkg/AcpiCommonTables/AcpiCommonTables.inf
+!if $(BMC_ENABLED) == TRUE
   INF RuleOverride=ACPITABLE Platform/Ampere/ComHpcAltPkg/AcpiTables/AcpiTables.inf
   INF RuleOverride=ACPITABLE Platform/Ampere/JadePkg/Ac02AcpiTables/Ac02AcpiTables.inf
-
+!else
+  INF RuleOverride=ACPITABLE BMC-disabled/Ac02AcpiTables/Ac02AcpiTables.inf
+  INF RuleOverride=ACPITABLE BMC-disabled/AcpiTables/AcpiTables.inf
+!endif
   #
   # SMBIOS
   #
@@ -430,7 +442,9 @@ APRIORI DXE {
   #
   # Ipmi utilities
   #
+!if $(BMC_ENABLED) == TRUE
   INF Silicon/Ampere/AmpereSiliconPkg/Application/IpmiUtil/IpmiUtilDynamicCommand.inf
+!endif
 
   #
   # HII
@@ -442,8 +456,12 @@ APRIORI DXE {
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/RasConfigDxe/RasConfigDxe.inf
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/WatchdogConfigDxe/WatchdogConfigDxe.inf
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/PcieDeviceConfigDxe/PcieDeviceConfigDxe.inf
-  INF Silicon/Ampere/AmpereSiliconPkg/Drivers/BmcInfoScreenDxe/BmcInfoScreenDxe.inf
+
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/RootComplexConfigDxe/RootComplexConfigDxe.inf
+  #
+!if $(BMC_ENABLED) == TRUE
+  INF Silicon/Ampere/AmpereSiliconPkg/Drivers/BmcInfoScreenDxe/BmcInfoScreenDxe.inf
+!endif
   # //><ADLINK-PD20232111>//
   INF Platform/Ampere/ComHpcAltPkg/Drivers/HardwareMonitorDxe/HwMonitorDxe.inf
   # //><ADLINK-PD20232111>//
@@ -451,7 +469,9 @@ APRIORI DXE {
   #
   # Misc
   #
+!if $(BMC_ENABLED) == TRUE
   INF Silicon/Ampere/AmpereAltraPkg/Drivers/IpmiBootDxe/IpmiBootDxe.inf
+!endif
 !include AdlinkAmpereAltra.fdf.inc
 !include AdlinkComHpc.fdf.inc
 
