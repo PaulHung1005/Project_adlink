@@ -1080,6 +1080,8 @@ AutoLaneBifurcationRetry:
     Val = SLOT_HPC_SET(Val, 1);
     // Program the power limit
     Val = SLOT_CAP_SLOT_POWER_LIMIT_VALUE_SET (Val, SLOT_POWER_LIMIT_75W);
+    // - PCIE_CAP_HOT_PLUG_SURPRISE - bit 5 = 1
+    Val = (Val | 0x20);
     MmioWrite32 (TargetAddress, Val);
 
     // Program DTI for ATS support
