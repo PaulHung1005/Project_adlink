@@ -217,7 +217,10 @@ GetDefaultDevMap (
   if (RootComplex->Type == RootComplexTypeB && RootComplex->DevMapHigh == 0) {
     RootComplex->DevMapHigh = RootComplex->DefaultDevMapHigh;
   }
-
+  if ((RootComplex->ID ==0) || (RootComplex->ID == 1)){
+    RootComplex->DevMapLow = DevMapMode2;
+    RootComplex->DefaultDevMapLow = DevMapMode2;
+  }
   SetRootComplexBifurcation (RootComplex, PcieController0, RootComplex->DevMapLow);
   if (RootComplex->Type == RootComplexTypeB) {
     SetRootComplexBifurcation (RootComplex, PcieController4, RootComplex->DevMapHigh);
@@ -593,7 +596,14 @@ GetMaxSpeedGen (
 	RootComplex->Pcie[Idx].DefaultMaxGen = LINK_SPEED_GEN3;
 //><ADLINK-MS20232710>//
   }
-
+  if (RootComplex->ID < 2){
+    for (Idx = 0; Idx <=2; Idx++) {
+      if ((Idx == 0) || (Idx ==2) ) {
+        RootComplex->Pcie[Idx].MaxGen = LINK_SPEED_GEN4;
+        RootComplex->Pcie[Idx].DefaultMaxGen = LINK_SPEED_GEN4;
+      } 
+    }
+  }
   if (RootComplex->Type == RootComplexTypeB) {
 //><ADLINK-MS20232710>//
     for (Idx = MaxPcieControllerOfRootComplexA; Idx < MaxPcieController; Idx++) {

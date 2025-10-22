@@ -641,15 +641,20 @@ CreatePcieDeviceGenSpeedOptions(
 
 VOID *
 CreatePCIeGenSpeedOptions(
-  AC01_ROOT_COMPLEX *RootComplex
+  AC01_ROOT_COMPLEX *RootComplex,
+  UINTN RCIndex,
+  UINT8 PcieIndex
   )
 {
   EFI_STRING_ID  StringId;
   VOID           *OptionsOpCodeHandle;
-
+  UINT8 Flag;
+  Flag = 0;
   OptionsOpCodeHandle = HiiAllocateOpCodeHandle ();
   ASSERT (OptionsOpCodeHandle != NULL);
-
+  if (RCIndex==1){
+      Flag=(EFI_IFR_OPTION_DEFAULT | EFI_IFR_OPTION_DEFAULT_MFG);
+  }
   StringId = STRING_TOKEN (STR_PCIE_SPEED_GEN1);
   HiiCreateOneOfOptionOpCode (
     OptionsOpCodeHandle,
@@ -681,7 +686,7 @@ CreatePCIeGenSpeedOptions(
   HiiCreateOneOfOptionOpCode (
     OptionsOpCodeHandle,
     StringId,
-    0,
+    Flag,
     EFI_IFR_NUMERIC_SIZE_1,
     PCIeSpeed4
     );
@@ -953,7 +958,7 @@ PcieRCScreenSetup (
 	  //
 	  // Create Option Opcode to display speed for RootComplex
 	  //
-	  OptionsOpCodeHandle = CreatePCIeGenSpeedOptions (RootComplex);
+	  OptionsOpCodeHandle = CreatePCIeGenSpeedOptions (RootComplex,RCIndex,PcieIndex );
 	  
 	   UnicodeSPrint (
            Str,
