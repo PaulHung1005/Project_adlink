@@ -3,7 +3,7 @@
 Ampere Mountain Jade code base & tools installation.
 
 * Clone the repository; run 'setup_git.sh' and 'setup_tools.sh' on your local machine. 
-* OS used for build environment is Ubuntu 20.04.
+* OS used for build environment is Ubuntu 22.04.05 LTS
 ---
 
 * **3 files in AmpereAltra-ATF-SCP submodule you may not be able to access, if so, please get them from Ampere and place them as below:**
