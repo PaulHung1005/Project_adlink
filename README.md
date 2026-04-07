@@ -39,20 +39,22 @@ for f in /usr/bin/aarch64-linux-gnu-*; do
     newname=${tool/aarch64-linux-gnu/aarch64-ampere-linux-gnu}
     ln -sf $f $WORKSPACE/edk2-ampere-tools/toolchain/ampere/bin/$newname
 done
-
 ls $WORKSPACE/edk2-ampere-tools/toolchain/ampere/bin/
-
+```
+```bash
 cd edk2 
 source edksetup.sh
 make -C BaseTools
 cd ..
 ./buildshell.sh
 ```
+# Re-build ComHPCAlt platform
+```bash
 export WORKSPACE=$PWD
 source edk2/edksetup.sh --reconfig
 export DEVEL_MODE=1
 . make_ComHpcAlt.sh
-
+```
 
 
 # Folders After Executing setup_git.sh
