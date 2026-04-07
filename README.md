@@ -11,8 +11,48 @@ Ampere Mountain Jade code base & tools installation.
   * *atf/altra_atf_signed_\*.slim*
   * *scp/altra_scp_signed_\*.slim*
 
-* ** If there are no 3 files in AmpereAltra-ATF-SCP submodule, you can try to create
-dummy files **
+* **If there are no 3 files in AmpereAltra-ATF-SCP submodule, you can try to createdummy files**
+# Step 1: 建立 dummy files
+```bash
+ATF_SCP_VER=2.10.20240201
+mkdir -p AmpereAltra-ATF-SCP/atf
+mkdir -p AmpereAltra-ATF-SCP/scp
+mkdir -p AmpereAltra-ATF-SCP/board_settings
+#	
+touch AmpereAltra-ATF-SCP/atf/altra_atf_signed_${ATF_SCP_VER}.slim
+touch AmpereAltra-ATF-SCP/scp/altra_scp_signed_${ATF_SCP_VER}.slim
+touch AmpereAltra-ATF-SCP/board_settings/ComHpcAltBoardSetting.bin
+```
+# Step 2: 確認檔案存在
+```bash
+ls -la AmpereAltra-ATF-SCP/atf/
+ls -la AmpereAltra-ATF-SCP/scp/
+ls -la AmpereAltra-ATF-SCP/board_settings/
+```
+
+* **Due to we do not have account to access Ampere Tools, please have workaround below.**
+```bash
+export WORKSPACE=$(pwd)
+mkdir -p $WORKSPACE/edk2-ampere-tools/toolchain/ampere/bin
+for f in /usr/bin/aarch64-linux-gnu-*; do
+    tool=$(basename $f)
+    newname=${tool/aarch64-linux-gnu/aarch64-ampere-linux-gnu}
+    ln -sf $f $WORKSPACE/edk2-ampere-tools/toolchain/ampere/bin/$newname
+done
+
+ls $WORKSPACE/edk2-ampere-tools/toolchain/ampere/bin/
+
+cd edk2 
+source edksetup.sh
+make -C BaseTools
+cd ..
+./buildshell.sh
+```
+export WORKSPACE=$PWD
+source edk2/edksetup.sh --reconfig
+export DEVEL_MODE=1
+. make_ComHpcAlt.sh
+
 
 
 # Folders After Executing setup_git.sh
