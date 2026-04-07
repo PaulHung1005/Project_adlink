@@ -43,25 +43,25 @@ else
   rm xz-lzma-compat-5.2.4-3.el8.x86_64.rpm
 fi
 sudo $INSTALLER install -y flex bison git
-echo "==========================================================================="
-echo "install python 3.6 sample"
-echo "==========================================================================="
-version=$(python -V 2>&1 | grep -Po '(?<=Python )(.+)')
-echo $version
-parsedVersion=${version:0:3}
-if [[ -z "$version" || "$parsedVersion" != "3.6" ]] ; then
-  if [[ $INSTALLER == "apt" || $INSTALLER == "apt-get" ]]; then
-      sudo add-apt-repository -y ppa:deadsnakes/ppa
-      sudo apt update -y
-      sudo apt install -y python3.6 # 3.6 works for tag 1.07
-  else
-    sudo dnf install -y python3
-  fi
-  plink=/usr/bin/python
-  if [ -L ${plink} ]; then
-    sudo unlink ${plink}
-  fi 
-  sudo ln -s /usr/bin/python3.6 ${plink}
-fi
-sudo apt install -y python3.6-distutils python3-pip
-echo "==========================================================================="
+#Remove python 3.6 echo "==========================================================================="
+#Remove python 3.6 echo "install python 3.6 sample"
+#Remove python 3.6 echo "==========================================================================="
+#Remove python 3.6 version=$(python -V 2>&1 | grep -Po '(?<=Python )(.+)')
+#Remove python 3.6 echo $version
+#Remove python 3.6 parsedVersion=${version:0:3}
+#Remove python 3.6 if [[ -z "$version" || "$parsedVersion" != "3.6" ]] ; then
+#Remove python 3.6   if [[ $INSTALLER == "apt" || $INSTALLER == "apt-get" ]]; then
+#Remove python 3.6       sudo add-apt-repository -y ppa:deadsnakes/ppa
+#Remove python 3.6       sudo apt update -y
+#Remove python 3.6       sudo apt install -y python3.6 # 3.6 works for tag 1.07
+#Remove python 3.6   else
+#Remove python 3.6     sudo dnf install -y python3
+#Remove python 3.6   fi
+#Remove python 3.6   plink=/usr/bin/python
+#Remove python 3.6   if [ -L ${plink} ]; then
+#Remove python 3.6     sudo unlink ${plink}
+#Remove python 3.6   fi 
+#Remove python 3.6   sudo ln -s /usr/bin/python3.6 ${plink}
+#Remove python 3.6 fi
+#Remove python 3.6 sudo apt install -y python3.6-distutils python3-pip
+#Remove python 3.6 echo "==========================================================================="
